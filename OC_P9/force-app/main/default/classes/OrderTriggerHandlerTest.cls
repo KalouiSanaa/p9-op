@@ -1,50 +1,45 @@
+@isTest
+public class OrderTriggerHandlerTest {
+    @isTest
+    static void testOnBeforeUpdate() {
+        List<Account> accounts = DataFactoyTest.createAccounts(1);
+        List<Order> orders = [SELECT Id, TotalAmount,shipmentCost__c, NetAmount__c
+                              FROM Order 
+                              WHERE Id IN :DataFactoyTest.createOrdersForAccounts(accounts, 1, 100, 1)];
 
-    @isTest
-public  with sharing class OrderTriggerHandlerTest {
-    @isTest
-    static void testHandleOrderUpdates() {
-        // Create an Account
-        Account account = new Account(Name = 'Test Account');
-        insert account;
-        
-        // Create a list of Orders
-        List<Order> orders = new List<Order>();
-        for (Integer i =0; i < 210; i++) {
-            Order order = new Order(AccountId = account.Id,TotalAmount__c = 100, ShipmentCost__c = 10);
-            orders.add(order);
+        for (Order order : orders) {
+            order.ShipmentCost__c = 20;
+            
         }
-        
-        // Test that an error is thrown when trying to update an Order on an Account with more than 100 Orders
         Test.startTest();
-        try {
-            OrderTriggerHandler.handleOrderUpdates(orders);
-            System.assert(false, 'Expected an exception to be thrown');
-        } catch (DmlException e) {
-        System.assertEquals('Cannot update Order on account with more than 200 Orders',e.getDmlMessage(0));
-        }
-        Test.stopTest();
-        
-        // Test that the Net Amount is correctly calculated and the Orders are updated
-        orders.remove(0);
-        Test.startTest();
-        OrderTriggerHandler.handleOrderUpdates(orders);
+        OrderTriggerHandler.onBeforeUpdate(orders);
         Test.stopTest();
         for (Order o : orders) {
-            System.assertEquals(90,o.NetAmount__c);
+            System.assertEquals(o.TotalAmount - o.ShipmentCost__c, o.NetAmount__c);
         }
     }
-    
-    static testMethod void testUpdateRevenueOnOrderStatusChange() {
-        Account testAccount = new Account(Name = 'Test Account');
-        insert testAccount;
 
-        Order testOrder = new Order(AccountId = testAccount.Id, Status = 'Draft',TotalAmount__c= 100);
-        insert testOrder;
+    @isTest
+    static void testOnAfterUpdate() {
+        List<Account> accounts = DataFactoyTest.createAccounts(1);
+        List<Order> orders =[SELECT Id, TotalAmount, AccountId
+                              FROM Order 
+                              WHERE Id IN :DataFactoyTest.createOrdersForAccounts(accounts, 1, 100, 1)];
 
-        testOrder.Status = 'Ordered';
-        update testOrder;
+       
+        Test.startTest();
+        OrderTriggerHandler.onAfterUpdate(orders);
+        Test.stopTest();
+     Set<Id> accountIds = new Set<Id>();
+        
+       for (Order order : Orders) {
+        if (order.AccountId != null) {
+        accountIds.add(order.AccountId);
+    }
 
-        testAccount = [SELECT AnnualRevenue FROM Account WHERE Id = :testAccount.Id];
-        System.assertEquals(100, testAccount.AnnualRevenue);
+Map<Id, Account> accountsMap = new Map<Id, Account>([SELECT Id, Chiffre_d_affaire__c FROM Account WHERE Id IN :accountIds]);
+        
+            System.assertEquals(accountsMap.get(order.AccountId).Chiffre_d_affaire__c, order.TotalAmount);
+        }
     }
 }

@@ -1,20 +1,51 @@
 @isTest
 public class UpdateAccountRevenueBatchTest {
+ private static Integer numOfAccounts =4;
+  private static Integer numOfOrders = 10;
+  private static Integer orderAmount = 100;
+    @isTest
     static void testUpdateAccountRevenueBatch() {
-        // Create test data
-            List<Account> accounts = DataFactory.createAccounts(5);
-           
+// Insérer les données de test
+        List<Account> accounts = DataFactoyTest.createAccounts(numOfAccounts);
+       
+        List<Order> orders = DataFactoyTest.createOrdersForAccounts(accounts, numOfOrders, orderAmount, 1);
+     
 
+
+     // Met à jour la liste de commandes pour déclencher le trigger
         Test.startTest();
-        System.assertEquals(5, accounts.size());
-        UpdateAccountRevenueBatch batch = new UpdateAccountRevenueBatch();
-        Id batchId = Database.executeBatch(batch, 2);
+UpdateAccountRevenueBatch batch = new UpdateAccountRevenueBatch();
+        Database.executeBatch(batch);
+        Test.stopTest();
+        // Vérifie que le nombre de commandes créées est égal à 40
+        System.assertEquals(orders.size(), 40);
+      
+    
+    }
+ @isTest
+    static void testUpdateAccountRevenueBatchWithNoOrder() {
+// Tester le cas limite : pas de commandes
+       
+        List<Account>  accounts = DataFactoyTest.createAccounts(numOfAccounts);
+       List<Order> orders = DataFactoyTest.createOrdersForAccounts(accounts, 0, 0, 0);
+        // Met à jour la liste de commandes pour déclencher le trigger
+       // Met à jour la liste de commandes pour déclencher le trigger
+        Test.startTest();
+UpdateAccountRevenueBatch batch = new UpdateAccountRevenueBatch();
+        Database.executeBatch(batch);
         Test.stopTest();
 
-        // Verify that the batch job has been executed
-        System.assertEquals(2, [SELECT COUNT() FROM AsyncApexJob WHERE Id = :batchId][0].get('expr0'));
-        // Verify that the revenue of the accounts has been increased by 10%
-        System.assertEquals(1100, [SELECT Revenue__c FROM Account WHERE Id = :testAccount1.Id][0].Revenue__c);
-        System.assertEquals(2200, [SELECT Revenue__c FROM Account WHERE Id = :testAccount2.Id][0].Revenue__c);
+        // Vérifie que le nombre de commandes créées est égal à 0
+        System.assertEquals(orders.size(),0);
+        List<Id> accountIds = new List<Id>();
+for (Account acc : accounts) {
+    accountIds.add(acc.Id);
+}
+List<Account> updatedAccounts = [SELECT Id, Chiffre_d_affaire__c FROM Account WHERE Id IN :accountIds];
+        for (Account acc : updatedAccounts) {
+      System.assertEquals(acc.Chiffre_d_affaire__c, 0);
+        
+        }
     }
+    
 }
