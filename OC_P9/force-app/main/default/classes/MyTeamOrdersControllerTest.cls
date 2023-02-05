@@ -25,7 +25,7 @@ System.assertEquals(expectedT,totalOrders);
     static void testSumOrdersWithoutOrders() {
         Test.startTest();
 
-        // Crée 3 comptes et 3 commandes pour chaque compte
+        // Crée 4 comptes et 0 commandes
         List<Account> accs= DataFactoyTest.createAccounts(4);
         List<Order> orders =DataFactoyTest.createOrdersForAccounts(accs, 0, 0, 0);
 
