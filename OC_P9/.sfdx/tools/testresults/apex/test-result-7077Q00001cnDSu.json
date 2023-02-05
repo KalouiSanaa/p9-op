@@ -1,0 +1,42 @@
+{
+  "summary": {
+    "outcome": "Passed",
+    "testsRan": 1,
+    "passing": 1,
+    "failing": 0,
+    "skipped": 0,
+    "passRate": "100%",
+    "failRate": "0%",
+    "skipRate": "0%",
+    "testStartTime": "Sun Feb 05 2023 5:16:23 PM",
+    "testExecutionTimeInMs": 1625,
+    "testTotalTimeInMs": 1625,
+    "commandTimeInMs": 173,
+    "hostname": "https://san7-dev-ed.my.salesforce.com",
+    "orgId": "00D7Q000009gR5OUAU",
+    "username": "sankal@sales.com",
+    "testRunId": "7077Q00001cnDSu",
+    "userId": "0057Q0000059GzZQAU"
+  },
+  "tests": [
+    {
+      "id": "07M7Q000001aossUAA",
+      "queueItemId": "7097Q000000HJTdQAO",
+      "stackTrace": null,
+      "message": null,
+      "asyncApexJobId": "7077Q00001cnDSuQAM",
+      "methodName": "testUpdateAccountRevenueBatch",
+      "outcome": "Pass",
+      "apexLogId": "07L7Q000005A4LTUA0",
+      "apexClass": {
+        "id": "01p7Q00000PIbSoQAL",
+        "name": "UpdateAccountRevenueBatchTest",
+        "namespacePrefix": null,
+        "fullName": "UpdateAccountRevenueBatchTest"
+      },
+      "runTime": 1625,
+      "testTimestamp": "2023-02-05T16:16:24.000+0000",
+      "fullName": "UpdateAccountRevenueBatchTest.testUpdateAccountRevenueBatch"
+    }
+  ]
+}

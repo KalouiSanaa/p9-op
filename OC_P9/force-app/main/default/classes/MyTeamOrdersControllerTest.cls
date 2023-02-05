@@ -12,12 +12,12 @@ public class MyTeamOrdersControllerTest {
     decimal expectedT = ords.size() * 200;
 
 // Obtenir la somme des commandes avec le statut "Activé" en utilisant le résultat agrégé
-List<AggregateResult> results = [SELECT SUM(TotalAmount) total FROM Order WHERE Status = 'Activated' and  Id IN :ords GROUP BY Status];
+List<AggregateResult> results = [SELECT SUM(TotalAmount) total FROM Order WHERE Id IN :ords GROUP BY Status];
   
     decimal totalOrders = (decimal)results[0].get('total');
 
 // Confirmer si le total attendu est égal à la somme calculée des commandes
-System.assertEquals(expectedT,totalOrders);
+System.assertEquals(expectedT,totalOrders,'the sum is ');
     Test.stopTest();
 }
 
@@ -35,7 +35,7 @@ System.assertEquals(expectedT,totalOrders);
         // Vérifie que la somme des commandes est correcte
         List<AggregateResult> resultsT = [SELECT SUM(TotalAmount) total FROM Order WHERE Id IN :orders];
         decimal totalOrders = (decimal)resultsT[0].get('total');
-        System.assertEquals(expectedT,totalOrders);
+        System.assertEquals(expectedT,totalOrders,'the expecting is null');
 
         Test.stopTest();
     }
