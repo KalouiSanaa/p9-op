@@ -10,7 +10,10 @@ public class UpdateAccountRevenueBatchTest {
        
         List<Order> orders = DataFactoyTest.createOrdersForAccounts(accounts, numOfOrders, orderAmount, 1);
      
-
+        for (Order order : orders) {
+                order.Status = 'Ordered';
+            }
+            update orders;
 
      // Met à jour la liste de commandes pour déclencher le batch 
         Test.startTest();
