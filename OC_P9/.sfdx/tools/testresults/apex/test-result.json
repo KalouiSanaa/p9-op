@@ -8,18 +8,18 @@
     "passRate": "100%",
     "failRate": "0%",
     "skipRate": "0%",
-    "testStartTime": "Sun Feb 05 2023 4:21:44 PM",
-    "testExecutionTimeInMs": 1429,
-    "testTotalTimeInMs": 1429,
+    "testStartTime": "Mon Feb 06 2023 7:49:38 PM",
+    "testExecutionTimeInMs": 1477,
+    "testTotalTimeInMs": 1477,
     "commandTimeInMs": 2,
     "hostname": "https://san7-dev-ed.my.salesforce.com",
     "orgId": "00D7Q000009gR5OUAU",
     "username": "sankal@sales.com",
     "testRunId": "",
-    "totalLines": 66,
-    "coveredLines": 66,
+    "totalLines": 52,
+    "coveredLines": 52,
     "testRunCoverage": "100%",
-    "orgWideCoverage": "95%"
+    "orgWideCoverage": "4%"
   },
   "tests": [
     {
@@ -28,53 +28,24 @@
       "stackTrace": "",
       "message": "",
       "asyncApexJobId": "",
-      "methodName": "testOnAfterUpdate",
+      "methodName": "testSumOrders",
       "outcome": "Pass",
-      "apexLogId": "07L7Q000005A4JXUA0",
+      "apexLogId": "07L7Q000005A7bvUAC",
       "apexClass": {
-        "id": "01p7Q00000PIamsQAD",
-        "name": "OrderTriggerHandlerTest",
+        "id": "01p7Q00000PIbUtQAL",
+        "name": "MyTeamOrdersControllerTest",
         "namespacePrefix": null,
-        "fullName": "OrderTriggerHandlerTest"
+        "fullName": "MyTeamOrdersControllerTest"
       },
-      "runTime": 400,
+      "runTime": 894,
       "testTimestamp": "",
-      "fullName": "OrderTriggerHandlerTest.testOnAfterUpdate",
+      "fullName": "MyTeamOrdersControllerTest.testSumOrders",
       "perClassCoverage": [
-        {
-          "apexClassOrTriggerName": "OrderTriggerHandler",
-          "apexClassOrTriggerId": "01p7Q00000PIamrQAD",
-          "apexTestClassId": "01p7Q00000PIamsQAD",
-          "apexTestMethodName": "testOnAfterUpdate",
-          "numLinesCovered": 8,
-          "numLinesUncovered": 6,
-          "percentage": "57%",
-          "coverage": {
-            "coveredLines": [
-              23,
-              26,
-              29,
-              32,
-              33,
-              34,
-              35,
-              43
-            ],
-            "uncoveredLines": [
-              12,
-              14,
-              15,
-              17,
-              37,
-              38
-            ]
-          }
-        },
         {
           "apexClassOrTriggerName": "OrderTrigger",
           "apexClassOrTriggerId": "01q7Q000000d2D7QAI",
-          "apexTestClassId": "01p7Q00000PIamsQAD",
-          "apexTestMethodName": "testOnAfterUpdate",
+          "apexTestClassId": "01p7Q00000PIbUtQAL",
+          "apexTestMethodName": "testSumOrders",
           "numLinesCovered": 0,
           "numLinesUncovered": 4,
           "percentage": "0%",
@@ -91,8 +62,8 @@
         {
           "apexClassOrTriggerName": "DataFactoyTest",
           "apexClassOrTriggerId": "01p7Q00000PIbOvQAL",
-          "apexTestClassId": "01p7Q00000PIamsQAD",
-          "apexTestMethodName": "testOnAfterUpdate",
+          "apexTestClassId": "01p7Q00000PIbUtQAL",
+          "apexTestMethodName": "testSumOrders",
           "numLinesCovered": 48,
           "numLinesUncovered": 0,
           "percentage": "100%",
@@ -154,31 +125,6 @@
     }
   ],
   "codecoverage": [
-    {
-      "apexId": "01p7Q00000PIamrQAD",
-      "name": "OrderTriggerHandler",
-      "type": "ApexClass",
-      "numLinesCovered": 14,
-      "numLinesUncovered": 0,
-      "percentage": "100%",
-      "coveredLines": [
-        12,
-        14,
-        15,
-        17,
-        23,
-        26,
-        29,
-        32,
-        33,
-        34,
-        35,
-        37,
-        38,
-        43
-      ],
-      "uncoveredLines": []
-    },
     {
       "apexId": "01p7Q00000PIbOvQAL",
       "name": "DataFactoyTest",

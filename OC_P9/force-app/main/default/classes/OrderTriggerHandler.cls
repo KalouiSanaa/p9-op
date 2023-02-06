@@ -15,7 +15,12 @@ public with sharing class OrderTriggerHandler {
         if (newOrder.ShipmentCost__c != null) {  
     // Calculer le montant net
     newOrder.NetAmount__c = newOrder.TotalAmount - newOrder.ShipmentCost__c;
-            }}
+            }
+            else {
+                // Si l'un des champs est null, le montant net est égal au montant total
+                newOrder.NetAmount__c = newOrder.TotalAmount;
+            }
+            }
         }
     
     //onAfterUpdate met à jour les revenus (Chiffre_d_affaire__c) pour chaque compte associé à une commande dans la liste en ajoutant le montant total de la commande aux revenus existants du compte.
