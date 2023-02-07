@@ -35,10 +35,12 @@ public with sharing class OrderTriggerHandler {
 
 // Boucle dans la liste newOrders
     for (Order order : newOrders) {
+        // Vérifiez si le statut de la commande est modifié à "Ordered"
+            if (order.Status == 'Ordered') {
         if (order.TotalAmount != null && order.AccountId != null) {
             if (!accountsMap.containsKey(order.AccountId)) {
                 accountsMap.put(order.AccountId, new Account(Id = order.AccountId, Chiffre_d_affaire__c = order.TotalAmount));
-            } else {
+            } }else {
                 Account account = accountsMap.get(order.AccountId);
                 account.Chiffre_d_affaire__c += order.TotalAmount;
             }
